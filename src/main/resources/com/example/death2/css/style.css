@@ -1,0 +1,12 @@
+.backgroundAnchor{
+    -fx-background-color: linear-gradient(to right top, #42047e, #07f49e);
+    -fx-background-radius: 10;
+}
+.progress_ind{
+    -fx-accent: linear-gradient(to right top, #42047e, #07f49e);
+}
+.progress_bar{
+}
+.btn{
+
+}
