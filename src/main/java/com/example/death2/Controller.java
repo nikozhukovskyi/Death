@@ -14,12 +14,19 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Timer;
 
 
-public class Controller{
+public class Controller {
 
+    ProcessBuilder build_cmd = new ProcessBuilder();
     Timer timer = new Timer();
+
+    String command;
+    private double xOffset;
+    private double yOffset;
+
     @FXML
     private void minimized(MouseEvent event) {
         final Node source = (Node) event.getSource();
@@ -29,26 +36,17 @@ public class Controller{
     }
 
     @FXML
-    private void close(MouseEvent event){
+    private void close(MouseEvent event) {
         Stop_Timer(event);
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
 
     }
-    public void iNFORM(String informes, String context){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText(informes + " ");
-        alert.setContentText(context + " ");
-        alert.showAndWait().ifPresent(wait -> {
 
-        });
-    }
     @FXML
-    public void Stop_Timer(MouseEvent event){
+    private void Stop_Timer(MouseEvent event) {
         timer.cancel();
-        iNFORM("Таймер зупенено!","Запусти таймер!");
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
@@ -56,22 +54,25 @@ public class Controller{
 
     @FXML
     void off() {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Information");
         alert.setHeaderText("Вимкнутись!?");
         alert.setContentText("Питаю чи мені вимкнутись!?");
-        alert.showAndWait().ifPresent(wait ->{
-        if (wait == ButtonType.OK){
-            Runtime rs = Runtime.getRuntime();
-            try {
-                rs.exec("cmd.exe /C C:\\Windows\\System32\\shutdown.exe /s /t 10 /c \"PC wil die in 10 seconds\"");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        alert.showAndWait().ifPresent(wait -> {
+            if (wait == ButtonType.OK) {
+                try {
+                    command = "C:\\\\Windows\\\\System32\\\\shutdown.exe /s /t 10 /c \\\"PC wil die in 10 seconds\\";
+                    build_cmd.command("cmd.exe", "/C", command);
+                    build_cmd.start();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
 
-    });
+        });
     }
+
 
     @FXML
     void reload() {
@@ -79,16 +80,17 @@ public class Controller{
         alert.setTitle("Information");
         alert.setHeaderText("Перезаргурзитись!?");
         alert.setContentText("Питаю чи мені перезаргурзитись!?");
-        alert.showAndWait().ifPresent(wait ->{
-            if (wait == ButtonType.OK){
-                Runtime rs = Runtime.getRuntime();
+        alert.showAndWait().ifPresent(wait -> {
+            if (wait == ButtonType.OK) {
                 try {
-                    rs.exec("cmd.exe /C C:\\Windows\\System32\\shutdown.exe -r /t 10 /c \"PC will restart in 10 seconds\"");
+                    command = "C:\\Windows\\System32\\shutdown.exe -r /t 10 /c \"PC will restart in 10 seconds\"";
+                    build_cmd.command("cmd.exe", "/C", command);
+                    build_cmd.start();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-    });
+        });
     }
 
     @FXML
@@ -97,12 +99,12 @@ public class Controller{
         alert.setTitle("Information");
         alert.setHeaderText("Заснути!?");
         alert.setContentText("Питаю чи піти спати!?");
-        alert.showAndWait().ifPresent(wait ->{
-            if (wait == ButtonType.OK){
-                Runtime rs = Runtime.getRuntime();
-
+        alert.showAndWait().ifPresent(wait -> {
+            if (wait == ButtonType.OK) {
                 try {
-                    rs.exec("cmd.exe /C %windir%\\System32\\rundll32.exe powrprof.dll,SetSuspendState 0,1,0");
+                    command = "%windir%\\System32\\rundll32.exe powrprof.dll,SetSuspendState 0,1,0";
+                    build_cmd.command("cmd.exe", "/C", command);
+                    build_cmd.start();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -111,15 +113,14 @@ public class Controller{
 
     }
 
-    private double xOffset;
-    private double yOffset;
+
     @FXML
-    void open_battery()  {
+    void open_battery() {
 
 
         Image ico = new Image(String.valueOf(getClass().getResource("img/ico.png")));
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("batter.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("batter.fxml")));
             Stage stage = new Stage();
             Scene scene = new Scene(root);//розміри панелі в сценБілдері
             stage.setTitle("!Death");
@@ -143,7 +144,7 @@ public class Controller{
 
             stage.setScene(scene);
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage() + " sukaa");
         }
 
