@@ -46,7 +46,6 @@ public class Controller {
 
     @FXML
     private void Stop_Timer(MouseEvent event) {
-        timer.cancel();
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
