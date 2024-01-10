@@ -15,8 +15,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Timer;
-
 
 public class Controller {
 
