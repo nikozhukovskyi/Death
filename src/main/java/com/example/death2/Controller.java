@@ -21,7 +21,6 @@ import java.util.Timer;
 public class Controller {
 
     ProcessBuilder build_cmd = new ProcessBuilder();
-    Timer timer = new Timer();
 
     String command;
     private double xOffset;
