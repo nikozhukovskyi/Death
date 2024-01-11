@@ -88,34 +88,51 @@ public class Controller_battery {
                     percent.setAlignment(Pos.CENTER);
 
                     if (percent_battery > 90.0) {
+                        battery_progress.setProgress(result_to_progress);
+                        percent_ind.setProgress(result_to_progress);
                         battery_progress.setStyle("-fx-accent: green");
                         pause.setOnFinished((e) -> percent.setText(df.format(percent_battery) + "%"));
                         pause.play();
                     }
                     if (percent_battery > 75.0 && percent_battery < 90.0) {
+                        battery_progress.setProgress(result_to_progress);
+                        percent_ind.setProgress(result_to_progress);
                         battery_progress.setStyle("-fx-accent: #90EE90");
                         pause.setOnFinished((e) -> percent.setText(df.format(percent_battery) + "%"));
                         pause.play();
                     }
                     if (percent_battery < 75.0 && percent_battery > 30) {
+                        battery_progress.setProgress(result_to_progress);
+                        percent_ind.setProgress(result_to_progress);
                         battery_progress.setStyle("-fx-accent: #22B2D8");
                         pause.setOnFinished((e) -> percent.setText(df.format(percent_battery) + "%"));
                         pause.play();
                     }
                     if (percent_battery > 25.0 && percent_battery < 30.0) {
+                        battery_progress.setProgress(result_to_progress);
+                        percent_ind.setProgress(result_to_progress);
                         battery_progress.setStyle("-fx-accent: #FF7D7D");
                         pause.setOnFinished((e) -> percent.setText(df.format(percent_battery) + "%"));
                         pause.play();
                     }
                     if (percent_battery < 25.0) {
+                        battery_progress.setProgress(result_to_progress);
+                        percent_ind.setProgress(result_to_progress);
                         battery_progress.setStyle("-fx-accent: #ff0000");
                         pause.setOnFinished((e) -> percent.setText(df.format(percent_battery) + "%"));
                         pause.play();
 
+                    }else {
+                        battery_progress.setProgress(result_to_progress);
+                        percent_ind.setProgress(result_to_progress);
+                        System.out.println("хуєта");
+                        pause.setOnFinished((e) -> percent.setText(df.format(percent_battery) + "%"));
+                        pause.play();
                     }
 
 
                 } else {
+                    iNFORM("таймер здох","хз-хз");
                     battery_progress.setProgress(result_to_progress);
                     percent_ind.setProgress(result_to_progress);
                     timer.cancel();
@@ -123,7 +140,7 @@ public class Controller_battery {
             }
         };
         if (result_to_progress > 0.0) {
-            timer.scheduleAtFixedRate(timerTask, 0, 60000);
+            timer.scheduleAtFixedRate(timerTask, 0, 10000);
         }
 
     }
